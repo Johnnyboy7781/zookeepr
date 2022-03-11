@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'));
 
 const filterByQuery = (query, animalsArray) => {
   let personalityTraitsArray = [];
@@ -72,6 +73,10 @@ const createNewAnimal = (body, animalsArray) => {
   );
   return animal;
 };
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+})
 
 app.get("/api/animals", (req, res) => {
   let results = animals;
